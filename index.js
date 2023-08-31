@@ -5,8 +5,8 @@ require("dotenv").config();
 const express = require("express");
 
 // DATABASE CONNECT
-const dbConnect = require("./config/mongoDB");
-dbConnect();
+const connectDB = require("./config/mongoDB");
+connectDB();
 
 // OUR APP USE EXPRESS
 const app = express();
