@@ -3,7 +3,7 @@ require("dotenv").config();
 
 // MORGAN REQUIRE
 const morgan = require("morgan");
-
+const authRoutes = require("./src/routes/auth.routes.js");
 
 // EXPRESS REQUIRE
 const express = require("express");
@@ -15,15 +15,14 @@ connectDB();
 // OUR APP USE EXPRESS
 const app = express();
 
-app.use(express.json());
+app.use(express.json()); // TODO express can read JSON
 app.use(morgan("dev"));
+
+// ROUTER
+app.use("/api", authRoutes);
 
 // PORT
 const port = process.env.PORT || 3000;
-
-/**
- * Here we call the routes
- */
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
