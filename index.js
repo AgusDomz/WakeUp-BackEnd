@@ -5,6 +5,9 @@ require("dotenv").config();
 const morgan = require("morgan");
 const authRoutes = require("./src/routes/auth.routes.js");
 
+// COOKIE PARSER
+  const cookieParser = require("cookie-parser");
+
 // EXPRESS REQUIRE
 const express = require("express");
 
@@ -17,6 +20,7 @@ const app = express();
 
 app.use(express.json()); // TODO express can read JSON
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 // ROUTER
 app.use("/api", authRoutes);
