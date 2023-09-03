@@ -1,6 +1,7 @@
 // DOTENV REQUIRE
 require("dotenv").config();
 
+
 // MORGAN REQUIRE
 const morgan = require("morgan");
 const authRoutes = require("./src/routes/auth.routes.js");
