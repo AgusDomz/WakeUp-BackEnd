@@ -6,7 +6,7 @@ const MenuSchema = new mongoose.Schema({
     require: true,
   },
   estate: {
-    type: String,
+    type: String, // ! CONTROLAR TYPE
     enum: ["in_stock", "out_stock"],
     default: "in_stock",
   },

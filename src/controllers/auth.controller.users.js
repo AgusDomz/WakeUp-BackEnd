@@ -4,7 +4,10 @@ const createAccessToken = require("../libs/jwt");
 
 // TODO REGISTER FUNCTION
 const register = async (req, res) => {
-  const { name, email, password, estate, role } = req.body;
+  const { name, email, role, password } = req.body;
+
+  if (!email) return res.status(400).json({ msg: "Email is require." });
+  if (!password) return res.status(400).json({ msg: "Password is require." });
 
   try {
     // entry hash encrypted
@@ -16,7 +19,7 @@ const register = async (req, res) => {
     // create user
     const newUser = new User({
       name,
-      email,
+      email: email.toLowerCase(),
       password: passwordHash,
       estate: true,
       role,
@@ -34,6 +37,7 @@ const register = async (req, res) => {
       id: userSaved._id,
       name: userSaved.name,
       email: userSaved.email,
+      role: userSaved.role,
       createAt: userSaved.createdAt,
       updateAt: userSaved.updatedAt,
     });
@@ -45,6 +49,8 @@ const register = async (req, res) => {
 // TODO LOGIN FUNCTION
 const login = async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ msg: "All fields are required" });
 
   try {
     const userFound = await User.findOne({ email });
@@ -72,7 +78,7 @@ const login = async (req, res) => {
   }
 };
 
-// TODO LOGOUT
+// TODO LOGOUT FUNCTION
 const logout = (req, res) => {
   res.cookie("token", "", {
     expires: new Date(0),
@@ -81,6 +87,7 @@ const logout = (req, res) => {
   return res.sendStatus(200);
 };
 
+// TODO PROFILE FUNCTION
 const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
 
@@ -90,8 +97,9 @@ const profile = async (req, res) => {
     id: userFound._id,
     name: userFound.name,
     email: userFound.email,
-    createAt: userFound.createAt,
-    updateAt: userFound.updateAt,
+    createdAt: userFound.createdAt,
+    updatedAt: userFound.updatedAt,
   });
 };
+
 module.exports = { register, login, logout, profile };
