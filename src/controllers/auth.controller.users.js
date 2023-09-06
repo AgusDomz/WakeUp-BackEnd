@@ -4,7 +4,10 @@ const createAccessToken = require("../libs/jwt");
 
 // TODO REGISTER FUNCTION
 const register = async (req, res) => {
-  const { name, email, role, password} = req.body;
+  const { name, email, role, password } = req.body;
+
+  if (!email) return res.status(400).json({ msg: "Email is require." });
+  if (!password) return res.status(400).json({ msg: "Password is require." });
 
   try {
     // entry hash encrypted
@@ -16,7 +19,7 @@ const register = async (req, res) => {
     // create user
     const newUser = new User({
       name,
-      email,
+      email: email.toLowerCase(),
       password: passwordHash,
       estate: true,
       role,
@@ -46,6 +49,8 @@ const register = async (req, res) => {
 // TODO LOGIN FUNCTION
 const login = async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(400).json({ msg: "All fields are required" });
 
   try {
     const userFound = await User.findOne({ email });
@@ -84,7 +89,6 @@ const logout = (req, res) => {
 
 // TODO PROFILE FUNCTION
 const profile = async (req, res) => {
-  console.log(req.user);
   const userFound = await User.findById(req.user.id);
 
   if (!userFound) return res.status(400).json({ msg: "User not found" });
@@ -97,4 +101,5 @@ const profile = async (req, res) => {
     updatedAt: userFound.updatedAt,
   });
 };
+
 module.exports = { register, login, logout, profile };
