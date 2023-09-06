@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const createAccessToken = require("../libs/jwt");
+// const transporter = require("../libs/nodemailerConfig");
 
 // TODO REGISTER FUNCTION
 const register = async (req, res) => {
@@ -28,6 +29,20 @@ const register = async (req, res) => {
     // save user
     const userSaved = await newUser.save();
 
+
+    //! REVISAR NODEMAILER
+    /**
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: userSaved.email,
+      subject: "Successful Registration.",
+      text: `"Your registration has been successful!"
+              Welcome to the family ${userSaved.name}`,
+    };
+
+    await transporter.sendMail(mailOptions);
+    */
+
     const token = await createAccessToken({
       id: userSaved._id,
     });
@@ -42,7 +57,8 @@ const register = async (req, res) => {
       updateAt: userSaved.updatedAt,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Registration failed: ", error);
+    res.status(500).json({ msg: "Registration failed." });
   }
 };
 
