@@ -8,7 +8,6 @@ const {
 } = require("../controllers/auth.controller");
 
 const authRequired = require("../middlewares/validateToken");
-const isAdmin = require("../middlewares/validateIsAdmin");
 
 const router = Router();
 

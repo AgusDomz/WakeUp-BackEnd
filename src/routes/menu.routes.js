@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const authRequired = require("../middlewares/validateToken");
 const {
   getMenus,
   createMenu,
@@ -8,16 +7,19 @@ const {
   deleteMenu,
 } = require("../controllers/menu.controller");
 
+const authRequired = require("../middlewares/validateToken");
+const isAdmin = require("../middlewares/validateIsAdmin");
+
 const router = Router();
 
 router.get("/menus", authRequired, getMenus);
 
 router.get("/menu/:id", authRequired, getMenu);
 
-router.post("/menus", authRequired, createMenu);
+router.post("/menus", authRequired, isAdmin, createMenu);
 
-router.delete("/menu/:id", authRequired, deleteMenu);
+router.delete("/menu/:id", authRequired, isAdmin, deleteMenu);
 
-router.put("/menu/:id", authRequired, updateMenu);
+router.put("/menu/:id", authRequired, isAdmin, updateMenu);
 
 module.exports = router;
