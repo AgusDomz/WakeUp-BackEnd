@@ -2,21 +2,23 @@ const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
   user: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     require: true,
   },
   date: {
     type: Date,
-    default: date.now,
+    default: Date.now,
   },
   menu: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Menu",
     require: true,
   },
   estate: {
     type: String,
-    enum: ["earring", "in_process", "delivered"],
-    default: "earring",
+    enum: ["pending", "in_process", "delivered"],
+    default: "pending",
   },
 });
 
