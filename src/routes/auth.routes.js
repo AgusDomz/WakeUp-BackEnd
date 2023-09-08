@@ -1,12 +1,11 @@
 const { Router } = require("express");
 
-
 const {
   register,
   login,
   logout,
   profile,
-} = require("../controllers/auth.controller.users");
+} = require("../controllers/auth.controller");
 
 const authRequired = require("../middlewares/validateToken");
 const isAdmin = require("../middlewares/validateIsAdmin");
