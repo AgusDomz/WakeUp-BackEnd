@@ -6,6 +6,7 @@ const {
   updateMenu,
   deleteMenu,
   getMenuByCategory,
+  updateStatusMenu,
 } = require("../controllers/menu.controller");
 
 const authRequired = require("../middlewares/validateToken");
@@ -24,5 +25,7 @@ router.delete("/menu/:id", authRequired, isAdmin, deleteMenu);
 router.put("/menu/:id", authRequired, isAdmin, updateMenu);
 
 router.get("/menu/category/:category", authRequired, getMenuByCategory);
+
+router.put("/menu/update-state", authRequired, isAdmin, updateStatusMenu);
 
 module.exports = router;

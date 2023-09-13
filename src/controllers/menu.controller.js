@@ -63,6 +63,28 @@ const getMenuByCategory = async (req, res) => {
   }
 }
 
+// TODO UPDATE STATUS MENÚ - ONLY ADMIN
+const updateStatusMenu = async (req, res) => {
+  const { menuId, newStatus } = req.body;
+
+  try {
+    const updateMenu = await Menu.findByIdAndUpdate(
+      menuId,
+      { state: newStatus },
+      { new: true }
+    );
+
+    if (!updateMenu) {
+      return res.status(404).json({ msg: "Menú not found" });
+    }
+
+    res.json(updateMenu);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Error updating menú status" });
+  }
+};
+
 module.exports = {
   getMenus,
   createMenu,
@@ -70,4 +92,5 @@ module.exports = {
   updateMenu,
   deleteMenu,
   getMenuByCategory,
+  updateStatusMenu,
 };
