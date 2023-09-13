@@ -9,7 +9,8 @@ const isAdmin = (req, res, next) => {
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
     if (err) return res.status(403).json({ msg: "Invalid token." });
 
-    if (user.role !== "admin") {
+    if (req.user.role !== "admin") {
+      console.log(req.user.role);
       return res.status(403).json({ msg: "Access denied. Only admins are allowed."})
     }
 

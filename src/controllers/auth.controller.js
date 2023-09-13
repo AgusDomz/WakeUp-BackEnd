@@ -70,7 +70,7 @@ const login = async (req, res) => {
 
   try {
     const userFound = await User.findOne({ email });
-    if (!userFound) return res.status(400).json({ msg: "User not found" });
+    if (!userFound) return res.status(404).json({ msg: "User not found" });
 
     // entry hash encrypted
     const isMatch = await bcrypt.compare(password, userFound.password);
@@ -79,6 +79,9 @@ const login = async (req, res) => {
 
     const token = await createAccessToken({
       id: userFound._id,
+      name: userFound.name,
+      email: userFound.email,
+      role: userFound.role,
     });
 
     res.cookie("token", token);
