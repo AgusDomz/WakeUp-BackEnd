@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  estate: {
+  state: {
     type: Boolean,
     default: false,
   },

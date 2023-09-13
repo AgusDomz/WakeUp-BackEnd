@@ -8,13 +8,13 @@ const getUsers = async (req, res) => {
 
 // TODO CREATE USER
 const createUser = async (req, res) => {
-  const { name, email, password, estate, role } = req.body;
+  const { name, email, password, state, role } = req.body;
 
   const newUser = new User({
     name,
     email,
     password,
-    estate,
+    state,
     role,
   });
 
@@ -48,10 +48,33 @@ const deleteUser = async (req, res) => {
   res.json(user);
 };
 
+// TODO UPDATE USER STATE
+const updateUserState = async (req, res) => {
+  try {
+    const { userId, newState } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    user.state = newState;
+
+    await user.save();
+
+    res.json({ msg: "User status update successful" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Error updating user status" });
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
   deleteUser,
   updateUser,
   getUser,
+  updateUserState,
 };

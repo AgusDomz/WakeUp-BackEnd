@@ -6,6 +6,7 @@ const {
   createUser,
   deleteUser,
   updateUser,
+  updateUserState,
 } = require("../controllers/user.controller");
 
 const authRequired = require("../middlewares/validateToken");
@@ -22,5 +23,7 @@ router.post("/users", authRequired, isAdmin, createUser);
 router.delete("/user/:id", authRequired, isAdmin, deleteUser);
 
 router.put("/user/:id", authRequired, isAdmin, updateUser);
+
+router.put("/user/update-state", authRequired, isAdmin, updateUserState);
 
 module.exports = router;

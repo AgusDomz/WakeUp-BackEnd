@@ -22,7 +22,7 @@ const register = async (req, res) => {
       name,
       email: email.toLowerCase(),
       password: passwordHash,
-      estate: true,
+      state: true,
       role,
     });
 

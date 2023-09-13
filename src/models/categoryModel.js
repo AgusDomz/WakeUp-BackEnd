@@ -5,7 +5,7 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  estate: {
+  state: {
     type: Boolean,
     default: true,
   },
