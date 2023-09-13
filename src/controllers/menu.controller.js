@@ -8,11 +8,11 @@ const getMenus = async (req, res) => {
 
 // TODO CREATE MENUS
 const createMenu = async (req, res) => {
-  const { name, estate, price, detail, category } = req.body;
+  const { name, state, price, detail, category } = req.body;
 
   const newMenu = new Menu({
     name,
-    estate,
+    state,
     price,
     detail,
     category,

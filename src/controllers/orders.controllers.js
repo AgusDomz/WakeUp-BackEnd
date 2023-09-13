@@ -18,7 +18,7 @@ const createOrder = async (req, res) => {
     const order = new Order({
       user: userId,
       menu: menuId,
-      estate: "pending",
+      state: "pending",
     });
 
     await order.save();
@@ -37,7 +37,7 @@ const updateStatusOrder = async (req, res) => {
   try {
     const updateOrder = await Order.findByIdAndUpdate(
       orderId,
-      { estate: newStatus },
+      { state: newStatus },
       { new: true }
     );
 
