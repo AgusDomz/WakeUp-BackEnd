@@ -29,20 +29,6 @@ const register = async (req, res) => {
     // save user
     const userSaved = await newUser.save();
 
-
-    //! REVISAR NODEMAILER
-    /**
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: userSaved.email,
-      subject: "Successful Registration.",
-      text: `"Your registration has been successful!"
-              Welcome to the family ${userSaved.name}`,
-    };
-
-    await transporter.sendMail(mailOptions);
-    */
-
     const token = await createAccessToken({
       id: userSaved._id,
     });
