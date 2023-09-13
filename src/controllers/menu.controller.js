@@ -49,10 +49,25 @@ const deleteMenu = async (req, res) => {
   res.json(menu);
 };
 
+// TODO GET MENU BY CATEGORY
+const getMenuByCategory = async (req, res) => {
+    try {
+      const { category } = req.params;
+  
+      const menus = await Menu.find({ category });
+  
+      res.json(menus);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ msg: "Error when searching menus by category" });
+  }
+}
+
 module.exports = {
   getMenus,
   createMenu,
   getMenu,
   updateMenu,
   deleteMenu,
+  getMenuByCategory,
 };
