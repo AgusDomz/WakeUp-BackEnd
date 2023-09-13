@@ -1,24 +1,15 @@
 // DOTENV REQUIRE
 require("dotenv").config();
-
-// EXPRESS REQUIRE
-const express = require("express");
+// APP REQUIRE
+const app = require("./app");
+// DATABASE REQUIRE
+const connectDB = require("./src/config/mongoDB");
 
 // DATABASE CONNECT
-const dbConnect = require("./config/mongoDB");
-dbConnect();
-
-// OUR APP USE EXPRESS
-const app = express();
-
-app.use(express.json());
+connectDB();
 
 // PORT
 const port = process.env.PORT || 3000;
-
-/**
- * Here we call the routes
- */
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
