@@ -15,8 +15,7 @@ const createMenu = async (req, res) => {
     state,
     price,
     detail,
-    category,
-    user: req.user.id,
+    category
   });
 
   const saveMenu = await newMenu.save();
@@ -67,13 +66,13 @@ const getMenuByCategory = async (req, res) => {
 const updateStatusMenu = async (req, res) => {
   const { menuId, newStatus } = req.body;
 
-  try {
+  try { 
     const updateMenu = await Menu.findByIdAndUpdate(
       menuId,
       { state: newStatus },
       { new: true }
     );
-
+    console.log(menuId)
     if (!updateMenu) {
       return res.status(404).json({ msg: "Menú not found" });
     }

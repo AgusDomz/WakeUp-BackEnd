@@ -3,14 +3,17 @@ const { Router } = require("express");
 const {
   createOrder,
   updateStatusOrder,
+  getAllOrders,
 } = require("../controllers/orders.controllers");
 const isAdmin = require("../middlewares/validateIsAdmin");
 const authRequired = require("../middlewares/validateToken");
 
 const router = Router();
 
-router.post("/orders", authRequired, createOrder);
+router.post("/createOrders",  createOrder);
 
-router.put("/orders/:id", authRequired, isAdmin, updateStatusOrder);
+router.get("/orders",  getAllOrders);
+
+router.put("/orders/:id",  updateStatusOrder);
 
 module.exports = router;

@@ -30,6 +30,17 @@ const createOrder = async (req, res) => {
   }
 };
 
+// TODO GET ALL ORDERS
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Error fetching orders" });
+  }
+};
+
 // TODO UPDATE STATUS ORDER - ONLY ADMIN
 const updateStatusOrder = async (req, res) => {
   const { orderId, newStatus } = req.body;
@@ -55,4 +66,5 @@ const updateStatusOrder = async (req, res) => {
 module.exports = {
   createOrder,
   updateStatusOrder,
+  getAllOrders,
 };

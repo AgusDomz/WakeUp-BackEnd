@@ -7,9 +7,8 @@ const MenuSchema = new mongoose.Schema(
       require: true,
     },
     state: {
-      type: String, // ! CONTROLAR TYPE
-      enum: ["in_stock", "out_stock"],
-      default: "in_stock",
+      type: Boolean,
+      default: "true",
     },
     price: {
       type: Number,

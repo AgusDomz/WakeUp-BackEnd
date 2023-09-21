@@ -14,11 +14,11 @@ const isAdmin = require("../middlewares/validateIsAdmin");
 
 const router = Router();
 
-router.get("/menus", authRequired, getMenus);
+router.get("/menus",  getMenus);
 
 router.get("/menu/:id", authRequired, getMenu);
 
-router.post("/menus", authRequired, isAdmin, createMenu);
+router.post("/createMenus",  authRequired, isAdmin, createMenu);
 
 router.delete("/menu/:id", authRequired, isAdmin, deleteMenu);
 
@@ -26,6 +26,6 @@ router.put("/menu/:id", authRequired, isAdmin, updateMenu);
 
 router.get("/menu/category/:category", authRequired, getMenuByCategory);
 
-router.put("/menu/update-state", authRequired, isAdmin, updateStatusMenu);
+router.put("/menu/update-state",  updateStatusMenu);
 
 module.exports = router;
